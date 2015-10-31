@@ -68,6 +68,7 @@ typedef NS_ENUM(NSUInteger, SwipeViewAlignment)
 @property (nonatomic, assign) BOOL truncateFinalPage;
 @property (nonatomic, strong, readonly) NSArray *indexesForVisibleItems;
 @property (nonatomic, strong, readonly) NSArray *visibleItemViews;
+@property (nonatomic, strong, readonly) UIView *previousItemView;
 @property (nonatomic, strong, readonly) UIView *currentItemView;
 @property (nonatomic, assign) NSInteger currentItemIndex;
 @property (nonatomic, assign) NSInteger currentPage;

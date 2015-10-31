@@ -71,6 +71,7 @@
 @property (nonatomic, strong) NSMutableDictionary *itemViews;
 @property (nonatomic, strong) NSMutableSet *itemViewPool;
 @property (nonatomic, assign) NSInteger previousItemIndex;
+@property (nonatomic, assign) NSInteger oldPreviousItemIndex;
 @property (nonatomic, assign) CGPoint previousContentOffset;
 @property (nonatomic, assign) CGSize itemSize;
 @property (nonatomic, assign) BOOL suppressScrollEvent;
@@ -121,6 +122,7 @@
     
     _decelerationRate = _scrollView.decelerationRate;
     _itemViews = [[NSMutableDictionary alloc] init];
+    _oldPreviousItemIndex = 0;
     _previousItemIndex = 0;
     _previousContentOffset = _scrollView.contentOffset;
     _scrollOffset = 0.0f;
@@ -326,6 +328,10 @@
     return [self itemViewAtIndex:_currentItemIndex];
 }
 
+- (UIView *)previousItemView
+{
+    return [self itemViewAtIndex: _oldPreviousItemIndex];
+}
 - (NSInteger)indexOfItemView:(UIView *)view
 {
     NSUInteger index = [[_itemViews allValues] indexOfObject:view];
@@ -625,6 +631,7 @@
         //send index update event
         if (_previousItemIndex != _currentItemIndex)
         {
+            _oldPreviousItemIndex = _previousItemIndex;
             _previousItemIndex = _currentItemIndex;
             [_delegate swipeViewCurrentItemIndexDidChange:self];
         }
